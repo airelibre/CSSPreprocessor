@@ -98,6 +98,13 @@ $lang['help'] = <<<EOT
 	<p>
 		If you want to contact me: <a href="mailto:contact@airelibre.fr">contact@airelibre.fr</a>
 	</p>
+	
+<h2>Project on the web</h2>
+<p>You can follow the project on : </p>
+	<ul>
+		<li>GitHub: <a href="https://github.com/airelibre/CSSPreprocessor" target="_blank">https://github.com/airelibre/CSSPreprocessor</a></li>
+		<li>CMSMS Forge: <a href="http://dev.cmsmadesimple.org/projects/csspreprocessor" target="_blank">http://dev.cmsmadesimple.org/projects/csspreprocessor</a></li>
+	</ul>
 
 <h2>Copyright and License</h2>
 	<p>Copyright &copy; 2014, AireLibre <a href="mailto:contact@airelibre.fr">contact@airelibre.fr</a> / <a href="http://www.airelibre.fr" target="_blank">www.airelibre.fr</a>. All Rights Are Reserved.</p>

@@ -35,6 +35,10 @@ class CSSPreprocessor extends CMSModule
 	
 	function GetAuthor() { return 'AireLibre - Mathieu Muths'; }
   function GetAuthorEmail() { return 'contact@airelibre.fr'; }
+  
+  function GetChangeLog() {
+		return file_get_contents(dirname(__FILE__).'/doc/changelog.html');
+	}
 	
 	public function LazyLoadFrontend() { return true; }
   public function LazyLoadAdmin() { return true; }
