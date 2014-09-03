@@ -70,7 +70,7 @@ $lang['help'] = <<<EOT
 
 
 <h2>Smarty support</h2>
-<p>For the moment, due to the place where the module is plugged in, there is no Smarty functions/variables support in the Stylesheet - Please use LESS variables - I hope this could be fixed soon.</p>
+<p>You can use Smarty tags with [[ and ]] - Smarty will be processed before the CSS PreProcessor.</p>
 
 <h2>Using Sourcemaps</h2>
 <p>

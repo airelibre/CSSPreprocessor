@@ -28,7 +28,7 @@ if( !isset($gCms) ) exit;
 class CSSPreprocessor extends CMSModule 
 {
 	
-	function GetVersion() {return '1.0.1';}
+	function GetVersion() {return '1.1';}
 	function MinimumCMSVersion() {return '1.11';}
 	function GetFriendlyName() {return $this->Lang('friendlyname');}
 	function GetHelp(){return $this->Lang('help');}
@@ -76,6 +76,15 @@ class CSSPreprocessor extends CMSModule
 		$obj->Load();
 		
 		return $obj;
+  }
+  
+  // Smarty fetch - do it "manually" because the postfilter does not give a clean smarty code (gives "<?php " etc.
+  public function FetchSmarty($content)
+  {
+		$smarty = cmsms()->GetSmarty();
+		$content = $smarty->fetch('string:' . $content);
+
+		return $content;
   }
 }
 

@@ -1,7 +1,7 @@
 <?php
 if (!isset($gCms)) exit;
 
-$this->RemoveEventHandler('Core', 'SmartyPostCompile');
+$this->RemoveEventHandler('Core', 'SmartyPreCompile');
 
 
 
