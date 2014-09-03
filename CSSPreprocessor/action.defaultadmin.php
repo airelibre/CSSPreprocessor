@@ -43,11 +43,13 @@ if ($dirs)
 		$obj->author = $class_name::AUTHOR;
 		$obj->website = $class_name::WEBSITE;
 		
-		if (!empty($class_name::LOGO))
-			$obj->logo = $class_name::LOGO;
+		$logo = $class_name::LOGO;
+		if (!empty($logo))
+			$obj->logo = $logo;
 		
-		if (!empty($class_name::NOTE))
-			$obj->note = $class_name::NOTE;
+		$note = $class_name::NOTE;
+		if (!empty($note))
+			$obj->note = $note;
 		
 		$preprocessors[$preprocessor] = $obj;
 	}

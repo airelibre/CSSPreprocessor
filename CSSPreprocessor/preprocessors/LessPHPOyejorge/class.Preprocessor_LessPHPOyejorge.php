@@ -29,7 +29,9 @@ class Preprocessor_LessPHPOyejorge extends Preprocessor {
 			$options['sourceMap'] = true;
 			$options['sourceMapWriteTo'] = $this->source_map_file;
 			$options['sourceMapURL'] = $this->source_map_url;
-			$options['sourceMapBasepath'] = cmsms()->GetConfig()['uploads_path'];
+			
+			$config = cmsms()->GetConfig();
+			$options['sourceMapBasepath'] = $config['uploads_path'];
 		}
 		
 		$this->parser = new Less_Parser($options);
