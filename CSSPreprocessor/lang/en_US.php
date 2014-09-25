@@ -37,7 +37,7 @@ $lang['help'] = <<<EOT
 		Define your import directories, if you use it. For exemple, if you want to integrate Bootstrap, you can :
 		<ol>
 			<li>Put your Bootstrap LESS source files in uploads/bootstrap/</li>
-			<li>Type <strong><em>bootstrap</em></strong> in the "Directories containing LESS files to include in compilation" - No slash at beginning or end</li>
+			<li>Type <strong><em>uploads/bootstrap</em></strong> in the "Directories containing LESS files to include in compilation" - No slash at beginning or end</li>
 		</ol>
 	</li>
 	<li>Start using LESS code in your stylesheets!</li>
@@ -57,7 +57,7 @@ $lang['help'] = <<<EOT
 	<li>Put the Bootstrap LESS files in <strong>uploads/bootstrap/</strong></li>
 	<li>Create a new stylesheet in CMSMS called something like <strong><em>Bootstrap :: main</em></strong></li>
 	<li>In that new stylesheet, copy all the content from bootstrap/bootstrap.less - This file is only a list of file import, but it's nice to have it in CMSMS because you can easily comment out the files you don't need</li>
-	<li>In the CSSPreprocessor module preferences, add <strong>bootstrap</strong> to the import directories</li>
+	<li>In the CSSPreprocessor module preferences, add <strong>uploads/bootstrap</strong> to the import directories</li>
 	<li>Create a new stylesheet called something like <strong><em>Custom :: main</em></strong></li>
 	<li>Put the string <strong>@@CSSPreprocessor@@</strong> at the top</li>
 	<li>You can now use that file to define your custom variables, override Bootstrap variables, create your styles, ... Or your can create as much stylesheets as you want</li>
@@ -119,7 +119,7 @@ EOT;
 
 
 // I
-$lang['import_dirs'] = 'Directories containing LESS files to include in compilation - Relative to the <strong>uploads/</strong> dir - Comma separated list';
+$lang['import_dirs'] = 'Directories containing LESS files to include in compilation - Relative to the <strong>root</strong> dir - Comma separated list';
 
 // M
 $lang['minify'] = 'Minify';

@@ -33,7 +33,7 @@ class Preprocessor {
 			foreach ($tmp as $one)
 			{
 				// Note: some preprocessors need the key to be the path (Less.php by oyejorge)
-				$dir = cms_join_path($config['uploads_path'], trim($one));
+				$dir = cms_join_path($config['root_path'], trim($one));
 				$import_dirs_array[$dir] = $dir;
 			}
 		}

@@ -35,7 +35,7 @@ class Preprocessor_LessCommand extends Preprocessor {
 		{
 			$config = cmsms()->GetConfig();
 			
-			$command .= '--source-map=' . $this->source_map_file . ' --source-map-url=' . $this->source_map_url . ' --source-map-basepath=' . $config['uploads_path'] . ' --source-map-rootpath=' . $config['uploads_url'] . ' ';
+			$command .= '--source-map=' . $this->source_map_file . ' --source-map-url=' . $this->source_map_url . ' --source-map-basepath=' . $config['root_path'] . ' --source-map-rootpath=' . $config['root_url'] . ' ';
 		}
 		
 		if (!empty($this->import_dirs))
