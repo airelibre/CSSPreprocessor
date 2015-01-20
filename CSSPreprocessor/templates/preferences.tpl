@@ -95,6 +95,29 @@
 			</p>
 		</div>
 		
+		<div class="pageoverflow">
+			<p class="pagetext">
+				<label>Autoprefixer</label>
+			</p>
+			<p class="pageinput">
+				<label for='use_autoprefixer'>
+					<input type="hidden" name='{$actionid}use_autoprefixer' value='0'>
+					<input type="checkbox" name='{$actionid}use_autoprefixer' id='use_autoprefixer' value='1' {if $use_autoprefixer}checked="checked"{/if}>
+					
+					{$mod->Lang('use_autoprefixer')}
+				</label>
+			</p>
+		</div>
+		
+		<div class="pageoverflow">
+			<p class="pagetext">
+				<label for='autoprefixer_browsers'>{$mod->Lang('autoprefixer_browsers')}</label>
+			</p>
+			<p class="pageinput">
+				<input type="text" name='{$actionid}autoprefixer_browsers' id='autoprefixer_browsers' value='{$autoprefixer_browsers}'>
+			</p>
+		</div>
+		
 	</fieldset>
 
 	

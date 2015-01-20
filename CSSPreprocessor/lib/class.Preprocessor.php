@@ -13,6 +13,8 @@ class Preprocessor {
 	public $source_map_file='';
 	public $source_map_url='';
 	
+	public $use_autoprefixer = 0;
+	public $autoprefixer_browsers = '';
 	
 	
 	// Load import dirs
@@ -63,6 +65,13 @@ class Preprocessor {
 			$this->source_map_url = $config['css_url'] . self::SOURCEMAPFILE;
 		}
 		// End sourcemap
+		// ***************************************************************************************************
+		
+		// ***************************************************************************************************
+		// Autoprefixer ?
+		$this->use_autoprefixer = $mod->GetPreference('use_autoprefixer', 0);
+		$this->autoprefixer_browsers = $mod->GetPreference('autoprefixer_browsers', '');
+		// End Autoprefixer
 		// ***************************************************************************************************
 	}
 	

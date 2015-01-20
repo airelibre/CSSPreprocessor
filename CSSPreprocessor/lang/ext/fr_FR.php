@@ -1,5 +1,7 @@
 <?php
 
+# A
+$lang['autoprefixer_browsers'] = 'Liste des navigateurs pour le plugin Autoprefixer - Voir : <a href="https://github.com/postcss/autoprefixer#browsers" target="_blank">https://github.com/postcss/autoprefixer#browsers</a>';
 
 // C
 $lang['cancel'] = 'Annuler';
@@ -142,5 +144,9 @@ $lang['preferences_set'] = 'Préférences enregistrées<br>Merci de vider le cac
 
 // S
 $lang['submit'] = 'Enregistrer';
+
+
+# U
+$lang['use_autoprefixer'] = 'Utiliser Autoprefixer (plus d\'infos : <a href="https:#github.com/postcss/autoprefixer" target="_blank">https:#github.com/postcss/autoprefixer</a>) - seulement si le plugin est installé sur le serveur et si le préprocesseur le permet';
 
 ?>

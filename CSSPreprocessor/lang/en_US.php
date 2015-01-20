@@ -1,22 +1,24 @@
 <?php
 
+# A
+$lang['autoprefixer_browsers'] = 'List of browsers for the Autoprefixer plugin - See: <a href="https://github.com/postcss/autoprefixer#browsers" target="_blank">https://github.com/postcss/autoprefixer#browsers</a>';
 
-// C
+# C
 $lang['cancel'] = 'Cancel';
 $lang['css_preprocessor'] = 'CSS Preprocessor';
 $lang['choose_preprocessor'] = 'Choose the preprocessor you want to use:';
 
 
-// F
+# F
 $lang['friendlyname'] = 'CSS Preprocessor';
 
 
-// G
+# G
 $lang['generate_sourcemap'] = 'Source map';
 $lang['generate_sourcemap_label'] = 'Generate a source map, if the PreProcessor supports it';
 
 
-// H
+# H
 $lang['help'] = <<<EOT
 <h2>What does this do?</h2>
  <p>This module adds to the CMSMS Stylesheets / Design manager some CSS Preprocessors, in order to compile LESS (or other maybe later) code</p>
@@ -102,13 +104,13 @@ $lang['help'] = <<<EOT
 <h2>Project on the web</h2>
 <p>You can follow the project on : </p>
 	<ul>
-		<li>GitHub: <a href="https://github.com/airelibre/CSSPreprocessor" target="_blank">https://github.com/airelibre/CSSPreprocessor</a></li>
-		<li>CMSMS Forge: <a href="http://dev.cmsmadesimple.org/projects/csspreprocessor" target="_blank">http://dev.cmsmadesimple.org/projects/csspreprocessor</a></li>
+		<li>GitHub: <a href="https:#github.com/airelibre/CSSPreprocessor" target="_blank">https:#github.com/airelibre/CSSPreprocessor</a></li>
+		<li>CMSMS Forge: <a href="http:#dev.cmsmadesimple.org/projects/csspreprocessor" target="_blank">http:#dev.cmsmadesimple.org/projects/csspreprocessor</a></li>
 	</ul>
 
 <h2>Copyright and License</h2>
-	<p>Copyright &copy; 2014, AireLibre <a href="mailto:contact@airelibre.fr">contact@airelibre.fr</a> / <a href="http://www.airelibre.fr" target="_blank">www.airelibre.fr</a>. All Rights Are Reserved.</p>
-	<p>This module has been released under the <a href="http://www.gnu.org/licenses/licenses.html#GPL">GNU Public License</a>. You must agree to this license before using the module.</p>
+	<p>Copyright &copy; 2014, AireLibre <a href="mailto:contact@airelibre.fr">contact@airelibre.fr</a> / <a href="http:#www.airelibre.fr" target="_blank">www.airelibre.fr</a>. All Rights Are Reserved.</p>
+	<p>This module has been released under the <a href="http:#www.gnu.org/licenses/licenses.html#GPL">GNU Public License</a>. You must agree to this license before using the module.</p>
 	
 	<h3>Preprocessors copyright</h3>
 	<p>
@@ -118,29 +120,33 @@ $lang['help'] = <<<EOT
 EOT;
 
 
-// I
+# I
 $lang['import_dirs'] = 'Directories containing LESS files to include in compilation - Relative to the <strong>root</strong> dir - Comma separated list';
 
-// M
+# M
 $lang['minify'] = 'Minify';
 $lang['minify_label'] = 'Minify the CSS - Note: if allowed by the pre-processor ';
 
-// N
+# N
 $lang['note'] = 'Note:';
 
 
-// O
+# O
 $lang['options'] = 'Options';
 
 
-// P
+# P
 $lang['preferences'] = 'Preferences';
 $lang['preferences_set'] = 'Preferences saved<br>Please clear your website cache in order to re-process the CSS';
 
 
 
 
-// S
+# S
 $lang['submit'] = 'Submit';
+
+
+# U
+$lang['use_autoprefixer'] = 'Use Autoprefixer (more info: <a href="https:#github.com/postcss/autoprefixer" target="_blank">https:#github.com/postcss/autoprefixer</a>) - only if it\'s installed on the server and the preprocessor supports it';
 
 ?>

@@ -12,6 +12,10 @@ if (isset($params['submit']))
 	$this->SetPreference('minify', $params['minify']);
 	$this->SetPreference('generate_sourcemap', $params['generate_sourcemap']);
 	
+	// Autoprefixer
+	$this->SetPreference('use_autoprefixer', $params['use_autoprefixer']);
+	$this->SetPreference('autoprefixer_browsers', $params['autoprefixer_browsers']);
+	
 	$this->ShowMessage($this->Lang('preferences_set'));
 }
 
@@ -62,6 +66,10 @@ $assign['current_preprocessor'] = $this->GetPreference('preprocessor', 'ILess');
 $assign['import_dirs'] = $this->GetPreference('import_dirs', '');
 $assign['minify'] =  $this->GetPreference('minify', 0);
 $assign['generate_sourcemap'] =  $this->GetPreference('generate_sourcemap', 0);
+
+// Autoprefixer
+$assign['use_autoprefixer'] =  $this->GetPreference('use_autoprefixer', 0);
+$assign['autoprefixer_browsers'] =  $this->GetPreference('autoprefixer_browsers', '');
 
 
 // CMSMS 1.11 compatibility
