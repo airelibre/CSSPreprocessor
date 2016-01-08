@@ -25,24 +25,24 @@
 #-------------------------------------------------------------------------
 if( !isset($gCms) ) exit;
 
-class CSSPreprocessor extends CMSModule 
+class CSSPreprocessor extends CMSModule
 {
-	
-	function GetVersion() {return '1.3';}
-	function MinimumCMSVersion() {return '1.11';}
+
+	function GetVersion() {return '1.4';}
+	function MinimumCMSVersion() {return '2.1.1';}
 	function GetFriendlyName() {return $this->Lang('friendlyname');}
 	function GetHelp(){return $this->Lang('help');}
-	
+
 	function GetAuthor() { return 'AireLibre - Mathieu Muths'; }
   function GetAuthorEmail() { return 'contact@airelibre.fr'; }
-  
+
   function GetChangeLog() {
 		return file_get_contents(dirname(__FILE__).'/doc/changelog.html');
 	}
-	
+
 	public function LazyLoadFrontend() { return true; }
   public function LazyLoadAdmin() { return true; }
-  
+
   // Admin params
   function HasAdmin() { return true; }
   public function IsAdminOnly() { return true; }
@@ -50,34 +50,34 @@ class CSSPreprocessor extends CMSModule
   function VisibleToAdminUser() {
 		return $this->CheckPermission('Manage Stylesheets');
   }
-  
-  
+
+
   function GetHeaderHTML() {
 		$header = '<link rel="stylesheet" href="../modules/CSSPreprocessor/admin_css/csspreprocessor.css"';
-		
+
 		return $header;
   }
-  
-  
-  
+
+
+
   // **********************************************************
   // NON-API CUSTOM FUNCTIONS
   // **********************************************************
-  
+
   public function GetPreprocessor()
   {
-		$preprocessor_name = $this->GetPreference('preprocessor', 'ILess');
-  
+		$preprocessor_name = $this->GetPreference('preprocessor', 'LessPHPOyejorge');
+
 		require_once(cms_join_path(__DIR__, 'preprocessors', $preprocessor_name, 'class.Preprocessor_' . $preprocessor_name . '.php'));
-		
+
 		$class_name = 'PreProcessor_' . $preprocessor_name;
 		$obj = new $class_name();
-		
+
 		$obj->Load();
-		
+
 		return $obj;
   }
-  
+
   // Smarty fetch - do it "manually" because the postfilter does not give a clean smarty code (gives "<?php " etc.
   public function FetchSmarty($content)
   {

@@ -14,6 +14,12 @@ class Less_Cache{
 	// directory less.php can use for storing data
 	public static $cache_dir	= false;
 
+	// prefix for the storing data
+	public static $prefix		= 'lessphp_';
+
+	// prefix for the storing vars
+	public static $prefix_vars	= 'lessphpvars_';
+
 	// specifies the number of seconds after which data created by less.php will be seen as 'garbage' and potentially cleaned up
 	public static $gc_lifetime	= 604800;
 
@@ -40,6 +46,22 @@ class Less_Cache{
 			throw new Exception('cache_dir not set');
 		}
 
+		if( isset($parser_options['prefix']) ){
+			Less_Cache::$prefix = $parser_options['prefix'];
+		}
+
+		if( empty(Less_Cache::$prefix) ){
+			throw new Exception('prefix not set');
+		}
+
+		if( isset($parser_options['prefix_vars']) ){
+			Less_Cache::$prefix_vars = $parser_options['prefix_vars'];
+		}
+
+		if( empty(Less_Cache::$prefix_vars) ){
+			throw new Exception('prefix_vars not set');
+		}
+
 		self::CheckCacheDir();
 		$less_files = (array)$less_files;
 
@@ -47,7 +69,7 @@ class Less_Cache{
 		//create a file for variables
 		if( !empty($modify_vars) ){
 			$lessvars = Less_Parser::serializeVars($modify_vars);
-			$vars_file = Less_Cache::$cache_dir.'lessphpvars_' . sha1($lessvars) . '.less';
+			$vars_file = Less_Cache::$cache_dir . Less_Cache::$prefix_vars . sha1($lessvars) . '.less';
 
 			if( !file_exists($vars_file) ){
 				file_put_contents($vars_file, $lessvars);
@@ -59,17 +81,16 @@ class Less_Cache{
 
 		// generate name for compiled css file
 		$hash = md5(json_encode($less_files));
- 		$list_file = Less_Cache::$cache_dir.'lessphp_'.$hash.'.list';
-
+ 		$list_file = Less_Cache::$cache_dir . Less_Cache::$prefix . $hash . '.list';
 
  		// check cached content
  		if( !isset($parser_options['use_cache']) || $parser_options['use_cache'] === true ){
 			if( file_exists($list_file) ){
 
 				self::ListFiles($list_file, $list, $cached_name);
-				$compiled_name = self::CompiledName($list);
+				$compiled_name = self::CompiledName($list, $hash);
 
-				// if $cached_name != $compiled_name, we know we need to recompile
+				// if $cached_name is the same as the $compiled name, don't regenerate
 				if( !$cached_name || $cached_name === $compiled_name ){
 
 					$output_file = self::OutputFile($compiled_name, $parser_options );
@@ -87,7 +108,7 @@ class Less_Cache{
 			return false;
 		}
 
-		$compiled_name = self::CompiledName( $less_files );
+		$compiled_name = self::CompiledName( $less_files, $hash );
 		$output_file = self::OutputFile($compiled_name, $parser_options );
 
 
@@ -172,7 +193,7 @@ class Less_Cache{
 	}
 
 
-	private static function CompiledName( $files ){
+	private static function CompiledName( $files, $extrahash ){
 
 		//save the file list
 		$temp = array(Less_Version::cache_version);
@@ -180,7 +201,7 @@ class Less_Cache{
 			$temp[] = filemtime($file)."\t".filesize($file)."\t".$file;
 		}
 
-		return 'lessphp_'.sha1(json_encode($temp)).'.css';
+		return Less_Cache::$prefix.sha1(json_encode($temp).$extrahash).'.css';
 	}
 
 
@@ -226,11 +247,11 @@ class Less_Cache{
 			foreach($files as $file){
 
 				// don't delete if the file wasn't created with less.php
-				if( strpos($file,'lessphp_') !== 0 ){
+				if( strpos($file,Less_Cache::$prefix) !== 0 ){
 					continue;
 				}
 
-				$full_path = Less_Cache::$cache_dir.'/'.$file;
+				$full_path = Less_Cache::$cache_dir . $file;
 
 				// make sure the file still exists
 				// css files may have already been deleted
@@ -258,7 +279,7 @@ class Less_Cache{
 				if( $type === 'list' ){
 					self::ListFiles($full_path, $list, $css_file_name);
 					if( $css_file_name ){
-						$css_file = Less_Cache::$cache_dir.'/'.$css_file_name;
+						$css_file = Less_Cache::$cache_dir . $css_file_name;
 						if( file_exists($css_file) ){
 							unlink($css_file);
 						}
@@ -284,7 +305,7 @@ class Less_Cache{
 		//pop the cached name that should match $compiled_name
 		$css_file_name = array_pop($list);
 
-		if( !preg_match('/^lessphp_[a-f0-9]+\.css$/',$css_file_name) ){
+		if( !preg_match('/^' . Less_Cache::$prefix . '[a-f0-9]+\.css$/',$css_file_name) ){
 			$list[] = $css_file_name;
 			$css_file_name = false;
 		}
