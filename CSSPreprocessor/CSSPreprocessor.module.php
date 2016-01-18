@@ -28,7 +28,7 @@ if( !isset($gCms) ) exit;
 class CSSPreprocessor extends CMSModule
 {
 
-	function GetVersion() {return '1.4';}
+	function GetVersion() {return '1.4.1';}
 	function MinimumCMSVersion() {return '2.1.1';}
 	function GetFriendlyName() {return $this->Lang('friendlyname');}
 	function GetHelp(){return $this->Lang('help');}
@@ -82,7 +82,14 @@ class CSSPreprocessor extends CMSModule
   public function FetchSmarty($content)
   {
 		$smarty = cmsms()->GetSmarty();
+
+		$smarty->left_delimiter = '[[';
+		$smarty->right_delimiter = ']]';
+
 		$content = $smarty->fetch('string:' . $content);
+
+		//$smarty->left_delimiter = '{';
+		//$smarty->right_delimiter = '}';
 
 		return $content;
   }
