@@ -1,7 +1,6 @@
 <?php
 if( !isset($gCms) ) exit;
 
-
 $content = &$params['stylesheet'];
 $search_string = '@@CSSPreprocessor@@';
 
