@@ -28,7 +28,7 @@ if( !isset($gCms) ) exit;
 class CSSPreprocessor extends CMSModule
 {
 
-	function GetVersion() {return '2.0';}
+	function GetVersion() {return '2.1';}
 	function MinimumCMSVersion() {return '1.12.1';}
 	function GetFriendlyName() {return $this->Lang('friendlyname');}
 	function GetHelp(){return $this->Lang('help');}
