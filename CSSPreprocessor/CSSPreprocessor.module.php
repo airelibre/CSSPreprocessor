@@ -53,7 +53,7 @@ class CSSPreprocessor extends CMSModule
 
 
   function GetHeaderHTML() {
-		$header = '<link rel="stylesheet" href="../modules/CSSPreprocessor/admin_css/csspreprocessor.css"';
+		$header = '<link rel="stylesheet" href="../modules/CSSPreprocessor/admin_css/csspreprocessor.css">';
 
 		return $header;
   }

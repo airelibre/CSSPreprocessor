@@ -1,28 +1,26 @@
 
 
-/*.preprocessor {display: block; margin: 0 0 15px; padding: 5px 0 15px}
-.preprocessor label {display: inline-block}
-.preprocessor div {display: inline-block; vertical-align: middle; margin-right: 10px}
-
-.preprocessor img {max-width: 150px; height: auto}
-
-.preprocessor h2 {margin-top: 0}
-.preprocessor .description {display: inline-block}*/
-
-
-
-
-.preprocessor {display: block; overflow: hidden; padding-left: 210px; width: auto; background: #ddd; border-radius: 5px; margin: 0 0 10px}
+.preprocessor {display: block; overflow: hidden; width: auto; background: #ddd; border-radius: 5px; margin: 0 0 10px}
 .preprocessor label,
-.preprocessor div.description {position: relative; float: left; padding: 10px}
+.preprocessor div.description {position: relative; float: left; padding-top: 10px; padding-bottom: 10px}
 
-.preprocessor div.description {width: 100%}
 
-.preprocessor label {width: 210px; right: 210px; _right: 0px; margin: 0 0 0 -100%}
-.preprocessor label .input_radio {top: 5px}
+/*.preprocessor label {width: 210px; right: 210px; _right: 0px; margin: 0 0 0 -100%}
+.preprocessor label .input_radio {top: 5px}*/
 
-.preprocessor .input_radio {display: inline-block}
-.preprocessor .logo {display: inline-block}
-.preprocessor img {max-width: 150px; height: auto}
+.preprocessor .input_radio {
+	display: inline-block;
+	text-align: center;
+	padding-top: 30px;
+}
+.preprocessor .logo {
+	display: inline-block;
+	text-align: center;
+}
+.preprocessor img {
+	max-width: 80%;
+	height: auto;
+	margin: 15px 0;
+}
 
 .preprocessor h2 {margin-top: 0}
