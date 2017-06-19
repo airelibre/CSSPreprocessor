@@ -11,3 +11,4 @@ Supports SMARTY inside stylesheets and before compilation.
 CMS Made Simple module page on the forge
 ----------------------------------------
 http://dev.cmsmadesimple.org/projects/csspreprocessor
+
