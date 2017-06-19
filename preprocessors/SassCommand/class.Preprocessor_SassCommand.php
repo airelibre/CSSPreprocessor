@@ -6,8 +6,10 @@ class Preprocessor_SassCommand extends Preprocessor {
 	const DESCRIPTION = 'The official command line SASS compilator';
 	const AUTHOR = 'Core SASS team';
 	const WEBSITE = 'http://www.sass-lang.com';
-	const NOTE = 'Fast, but you NEED the sass command line tool installed on your server to use it - check the official website for more informations - Does not support autoprefixer';
+	const NOTE = 'Fast, but you NEED the sass command line tool installed on your server to use it - check the official website for more informations';
 	const LOGO = 'logo.png';
+
+	const SOURCEMAPFILE = 'csspreprocessor_out.css.map';
 
 
 
@@ -56,8 +58,10 @@ class Preprocessor_SassCommand extends Preprocessor {
 
 		$css = file_get_contents($file_output);
 
-		// Remove cache file
-		//unlink($file);
+
+		// Remove temp files
+		@unlink($file);
+		@unlink($file_output);
 
 		return true;
 	}

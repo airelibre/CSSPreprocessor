@@ -13,9 +13,6 @@ class Preprocessor {
 	public $source_map_file='';
 	public $source_map_url='';
 
-	public $use_autoprefixer = 0;
-	public $autoprefixer_browsers = '';
-
 
 	// Load import dirs
 	public function Load()
@@ -61,18 +58,12 @@ class Preprocessor {
 
 		if ($this->generate_sourcemap)
 		{
-			$this->source_map_file = cms_join_path(TMP_CACHE_LOCATION, self::SOURCEMAPFILE);
-			$this->source_map_url = $config['css_url'] . self::SOURCEMAPFILE;
+			$this->source_map_file = cms_join_path(TMP_CACHE_LOCATION, static::SOURCEMAPFILE);
+			$this->source_map_url = $config['css_url'] . '/' . static::SOURCEMAPFILE;
 		}
 		// End sourcemap
 		// ***************************************************************************************************
 
-		// ***************************************************************************************************
-		// Autoprefixer ?
-		$this->use_autoprefixer = $mod->GetPreference('use_autoprefixer', 0);
-		$this->autoprefixer_browsers = $mod->GetPreference('autoprefixer_browsers', '');
-		// End Autoprefixer
-		// ***************************************************************************************************
 	}
 
 

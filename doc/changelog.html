@@ -1,5 +1,18 @@
 <ul>
   <li>
+    <strong>3.0-beta1</strong> - 2017-06-19
+    <ul>
+      <li>Now works in CMSMS 2.2+ and uses the hooks system to process the entire SCSS/LESS code from various stylesheets directly in {cms_stylesheet}</li>
+      <li>With the new CMSMS stylesheets hook you can now use many Sass/Less source CSS files in the Design manager (not limited to 1 anymore)</li>
+      <li>Now using Autoprefixer with Postcss directly from CLI - you must install it on your server (see the CLI tool from https://github.com/postcss/autoprefixer) - Browsers list parameter removed</li>
+      <li>The @@CSSPreprocessor@@ tag is no more needed: the entire concatenated stylesheet is now processed - if you don't need the CSSPreprocessor module, simply remove it or disable it.</li>
+      <li>Removed the installer / uninstaller (nothing more to install and uninstall as there is no more event handler thanks to the hooks mechanism)</li>
+      <li>Now clears the CMSMS cache when the module preferences are changed</li>
+      <li>Bug fix wrt sourcemap files in Sass</li>
+      <li>Small admin look change</li>
+    </ul>
+  </li>
+  <li>
     <strong>2.1</strong> - 2016-05-09 : bug fixes wrt admin panel look
   </li>
   <li>
@@ -7,7 +20,7 @@
     <ul>
       <li>Added Sass from command line + ScssPHP</li>
       <li>Bug fixes</li>
-      <li>Documentation update for CMSMS2 - Note: only one stylsheet is allowed in order to work in CMSMS 2</li>
+      <li>Documentation update for CMSMS2 - Note: only one stylsheet is allowed in order to work in CMSMS 2</li> 
     </ul>
   </li>
   <li>

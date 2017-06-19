@@ -1,7 +1,5 @@
 <?php
 
-# A
-$lang['autoprefixer_browsers'] = 'List of browsers for the Autoprefixer plugin - See: <a href="https://github.com/postcss/autoprefixer#browsers" target="_blank">https://github.com/postcss/autoprefixer#browsers</a>';
 
 # C
 $lang['cancel'] = 'Cancel';
@@ -39,7 +37,7 @@ $lang['options'] = 'Options';
 
 # P
 $lang['preferences'] = 'Preferences';
-$lang['preferences_set'] = 'Preferences saved<br>Please clear your website cache in order to re-process the CSS';
+$lang['preferences_set'] = 'Preferences saved';
 
 
 
@@ -49,7 +47,11 @@ $lang['submit'] = 'Submit';
 
 
 # U
-$lang['use_autoprefixer'] = 'Use Autoprefixer (more info: <a href="https:#github.com/postcss/autoprefixer" target="_blank">https:#github.com/postcss/autoprefixer</a>) - only if it\'s installed on the server and the preprocessor supports it';
+$lang['use_autoprefixer'] = 'Use Autoprefixer (more info: <a href="https:#github.com/postcss/autoprefixer" target="_blank">https://github.com/postcss/autoprefixer</a>) - only if it\'s installed on the server';
+
+
+
+
 
 
 $lang['help'] = <<<EOT
@@ -61,47 +63,30 @@ $lang['help'] = <<<EOT
 	This module uses the standard stylesheets of CMS Made Simple. It is launched after all the stylesheets have been combined, and it takes all the CSS content to give it to the Preprocessor of your choice.
  </p>
  <p>
-		<strong>For CMSMS 1.12</strong> : Keep in mind that this module processes the entire stylesheet after their combination. No matter if you use 1 or 10 stylesheets in your design, the preprocessor will only get one string.
+		Keep in mind that this module processes the entire stylesheet after their combination. No matter if you use 1 or 10 stylesheets in your design, the preprocessor will only process it one time.
   </p>
-  <p>
-    <strong>For CMSMS 2+</strong> : the new {cms_stylesheet} has a different behaviour. Every stylesheet is processed seperately, and the CSSPreprocessor module will not work if you have more than 1 LESS / SASS Stylessheet in the design. You will not be able to define a variable in one stylesheet, and then use it in another one.<br>
-    <strong>Solution:</strong> : put your LESS / SASS code in files and link the main file with the module through the "import dirs" parameter.
- </p>
+  
 
 <h2>How Do I Use It</h2>
-<h3>CMSMS 1.12</h3>
-<ul>
-	<li>Use the "combine" option (default in {cms_stylesheet})</li>
-	<li>In order to recognize which template is a stylesheet, you MUST put that string in one of your stylesheets: <strong>@@CSSPreprocessor@@</strong> - I suggest putting it in a simple comment</li>
-	<li>
-		Define your import directories, if you use it. For exemple, if you want to integrate Bootstrap, you can :
-		<ol>
-			<li>Put your Bootstrap LESS source files in uploads/bootstrap/</li>
-			<li>Type <strong><em>uploads/bootstrap</em></strong> in the "Directories containing LESS/SASS files to include in compilation" - No slash at beginning or end</li>
-		</ol>
-	</li>
-	<li>Start using LESS code in your stylesheets!</li>
-</ul>
 
 <h3>CMSMS 2+</h3>
 <ul>
-	<li>In order to recognize which template is a stylesheet, you MUST put that string in one of your stylesheets: <strong>@@CSSPreprocessor@@</strong> - I suggest putting it in a simple comment</li>
 	<li>
-		Define your import directories, if you use it. For exemple, if you want to integrate Bootstrap, you can :
+		Define your import directories, if you use it. For example, if you want to integrate Bootstrap, you can:
 		<ol>
-			<li>Put your Bootstrap LESS source files in uploads/bootstrap/</li>
-			<li>Type <strong><em>uploads/bootstrap</em></strong> in the "Directories containing LESS/SASS files to include in compilation" - No slash at beginning or end</li>
-      <li>Create a "custom" stylesheet (only one stylesheet) and link it to your design.</li>
+			<li>Put your Bootstrap LESS source files in assets/bootstrap/</li>
+			<li>Type <strong><em>assets/bootstrap</em></strong> in the "Directories containing LESS/SASS files to include in compilation" - No slash at beginning or end</li>
+      <li>Create one or more "custom" stylesheet in the Design Manager and link it to your design.</li>
 		</ol>
 	</li>
   <li>
 		Same can be done for Foundation:
 		<ol>
-			<li>Put your Foundation SASS source files in uploads/foundation/scss</li>
-			<li>Type <strong><em>uploads/foundation/scss</em></strong> in the "Directories containing LESS/SASS files to include in compilation" - No slash at beginning or end</li>
+			<li>Put your Foundation SASS source files in assets/foundation/scss</li>
+			<li>Type <strong><em>assets/foundation/scss</em></strong> in the "Directories containing LESS/SASS files to include in compilation" - No slash at beginning or end</li>
 		</ol>
 	</li>
-	<li>Start using LESS code in your stylesheets!</li>
+	<li>Start using LESS / SASS code in your stylesheets!</li>
 </ul>
 
 
@@ -110,7 +95,7 @@ $lang['help'] = <<<EOT
 	If you make an update on a CMSMS stylesheet, everything is fine and the module will process the stylesheet again on the next page refresh.
 </p>
 <p>
-	However, if you did make a change in your imported less files, the system will not perform any update - in this case, you must clear the cache or simply remove the stylesheet from the cache directory.
+	However, if you did make a change in your imported less files, the system will not perform any update - in this case, you must clear the cache or simply save your designmanager stylesheet to make the {cms_stylesheet} plugin process the css again.
 </p>
 
 
@@ -120,7 +105,7 @@ $lang['help'] = <<<EOT
 
 <h2>Using Sourcemaps</h2>
 <p>
-	Some preprocessors can create sourcemap files, in order to help you during integration. Don't forget to configure your browser to use that function. Note that only imported files will be mapped in the sourcemaps (this may change in a further version).
+	Some preprocessors can create sourcemap files, in order to help you during integration. Don't forget to configure your browser to use that function. Note that only imported files will be mapped in the sourcemaps (this may change in a further version).<br>Don't forget to disable the sourcemaps for production.
 </p>
 
 <h2>Deactivate the module</h2>
@@ -130,19 +115,19 @@ $lang['help'] = <<<EOT
 
 <h2>Preprocessor switch</h2>
 <p>
-	You may want to switch from one preprocessor to another - Don't forget to clear your cache after that because the module will not do it.
+	You may want to switch from one preprocessor to another - The module should clear the cache on preferences change so on the next page refresh in your browser the whole CSS will be preprocessed again.
 </p>
 
 <h2>Extend with another preprocessor</h2>
 <p>
 	You can create a new directory in the "preprocessors" directory, and create your own class - Check how the bundled preprocessors are integrated.
 </p>
-<p>Don't forget to <a href="mailto:contact@airelibre.fr">email me</a> if you want your preprocessor to be added to the project!</p>
+<p>Don't forget to <a href="mailto:contact@airelibre.net">email me</a> if you want your preprocessor to be added to the project!</p>
 
 <h2>Support</h2>
 	<p>As per the GPL, this software is provided as-is. Please read the text of the license for the full disclaimer.</p>
 	<p>
-		If you want to contact me: <a href="mailto:contact@airelibre.fr">contact@airelibre.fr</a>
+		If you want to contact me: <a href="mailto:contact@airelibre.net">contact@airelibre.net</a>
 	</p>
 
 <h2>Project on the web</h2>
@@ -153,7 +138,7 @@ $lang['help'] = <<<EOT
 	</ul>
 
 <h2>Copyright and License</h2>
-	<p>Copyright &copy; 2014, AireLibre <a href="mailto:contact@airelibre.fr">contact@airelibre.fr</a> / <a href="http:#www.airelibre.fr" target="_blank">www.airelibre.fr</a>. All Rights Are Reserved.</p>
+	<p>Copyright &copy; 2014-2017, Mathieu Muths <aireLibre> <a href="mailto:contact@airelibre.net">contact@airelibre.net</a> / <a href="https://www.airelibre.net" target="_blank">www.airelibre.net</a>. All Rights Are Reserved.</p>
 	<p>This module has been released under the <a href="http:#www.gnu.org/licenses/licenses.html#GPL">GNU Public License</a>. You must agree to this license before using the module.</p>
 
 	<h3>Preprocessors copyright</h3>

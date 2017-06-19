@@ -33,7 +33,7 @@
 
 						{if isset($preprocessor->logo) and !empty($preprocessor->logo)}
 							<div class="logo grid_2">
-								<img src="{$mod->GetModuleURLPath()}/preprocessors/{$dir}/{$preprocessor->logo}">
+								<img src="{$mod->GetModuleURLPath()}/preprocessors/{$dir}/{$preprocessor->logo}" width="100">
 							</div>
 						{/if}
 
@@ -116,14 +116,6 @@
 			</p>
 		</div>
 
-		<div class="pageoverflow">
-			<p class="pagetext">
-				<label for='autoprefixer_browsers'>{$mod->Lang('autoprefixer_browsers')}</label>
-			</p>
-			<p class="pageinput">
-				<input type="text" name='{$actionid}autoprefixer_browsers' id='autoprefixer_browsers' value='{$autoprefixer_browsers}'>
-			</p>
-		</div>
 
 	</fieldset>
 

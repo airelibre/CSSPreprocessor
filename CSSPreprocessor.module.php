@@ -28,24 +28,32 @@ if( !isset($gCms) ) exit;
 class CSSPreprocessor extends CMSModule
 {
 
-	function GetVersion() {return '2.1';}
-	function MinimumCMSVersion() {return '1.12.1';}
+	function __construct(){
+		parent::__construct();
+
+  	\CMSMS\HookManager::add_hook('Core::StylesheetPostRender', [$this, 'RunPreprocessor'] );
+	}
+
+	function GetVersion() {return '3.0-beta1';}
+	function MinimumCMSVersion() {return '2.2';}
 	function GetFriendlyName() {return $this->Lang('friendlyname');}
 	function GetHelp(){return $this->Lang('help');}
 
-	function GetAuthor() { return 'AireLibre - Mathieu Muths'; }
+	function GetAuthor() { return 'Aire libre - Mathieu Muths'; }
   function GetAuthorEmail() { return 'contact@airelibre.fr'; }
 
   function GetChangeLog() {
 		return file_get_contents(dirname(__FILE__).'/doc/changelog.html');
 	}
 
-	public function LazyLoadFrontend() { return true; }
-  public function LazyLoadAdmin() { return true; }
+	public function LazyLoadFrontend() { return false; }
+  public function LazyLoadAdmin() { return false; }
+
 
   // Admin params
   function HasAdmin() { return true; }
-  public function IsAdminOnly() { return true; }
+  function IsAdminOnly() { return false; }
+
   function GetAdminSection() { return 'layout'; }
   function VisibleToAdminUser() {
 		return $this->CheckPermission('Manage Stylesheets');
@@ -78,21 +86,43 @@ class CSSPreprocessor extends CMSModule
 		return $obj;
   }
 
-  // Smarty fetch - do it "manually" because the postfilter does not give a clean smarty code (gives "<?php " etc.
-  public function FetchSmarty($content)
-  {
-		$smarty = cmsms()->GetSmarty();
 
-		$smarty->left_delimiter = '[[';
-		$smarty->right_delimiter = ']]';
 
-		$content = $smarty->fetch('string:' . $content);
 
-		//$smarty->left_delimiter = '{';
-		//$smarty->right_delimiter = '}';
+  // Run the preprocessor
+  public function RunPreprocessor($params){
 
-		return $content;
+		// CSSPreprocessor load and run
+		if ($preprocessor = $this->GetPreprocessor())
+		{
+
+			$preprocessor->CompileCSS($params['content']);
+
+
+			if ( $this->GetPreference('use_autoprefixer', 0) )
+			{
+				// Store to a file to give it to the command line
+				$tmp_file = cms_join_path(TMP_CACHE_LOCATION, 'postcss_tmp.css');
+				file_put_contents($tmp_file, $params['content']);
+				exec('postcss ' . $tmp_file . ' --use autoprefixer --no-map -o ' . $tmp_file);
+
+				$res = file_get_contents($tmp_file);
+				if ( $res != '')
+				{
+					$params['content'] = $res;
+				}
+
+				@unlink($tmp_file);
+			}
+
+
+			// Minify
+			if ($preprocessor->minify)
+				$preprocessor->MinifyCSS($params['content']);
+		}
   }
+
+
 }
 
 ?>

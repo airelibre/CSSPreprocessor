@@ -50,15 +50,7 @@ class Preprocessor_LessCommand extends Preprocessor {
 			$command .= ' --include-path=' . implode($separator, $this->import_dirs);
 		}
 
-		// Autoprefixer
-		if ($this->use_autoprefixer)
-		{
-			if (!empty($this->autoprefixer_browsers))
-				$command .= ' --autoprefix="' . $this->autoprefixer_browsers . '"';
-			else
-				$command .= ' --autoprefix=""';
-		}
-
+		
 		$command .= ' ' . $file . ' ' .$file_output;
 
 		// Ask for command to system

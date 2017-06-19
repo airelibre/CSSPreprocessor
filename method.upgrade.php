@@ -19,4 +19,10 @@ if( version_compare($oldversion,'1.4') < 0 )
 }
 
 
+if (version_compare($oldversion, '3.0') < 0)
+{
+	$this->RemoveEventHandler('Core', 'StylesheetPreCompile');
+}
+
+
 ?>

@@ -14,7 +14,11 @@ if (isset($params['submit']))
 	
 	// Autoprefixer
 	$this->SetPreference('use_autoprefixer', $params['use_autoprefixer']);
-	$this->SetPreference('autoprefixer_browsers', $params['autoprefixer_browsers']);
+
+
+	cmsms()->clear_cached_files(-1);
+  // put mention into the admin log
+  audit('CSSPreprocessor', 'System maintenance', 'Cache cleared after CSSPreprocessor preferences change');
 	
 	$this->ShowMessage($this->Lang('preferences_set'));
 }
@@ -69,7 +73,7 @@ $assign['generate_sourcemap'] =  $this->GetPreference('generate_sourcemap', 0);
 
 // Autoprefixer
 $assign['use_autoprefixer'] =  $this->GetPreference('use_autoprefixer', 0);
-$assign['autoprefixer_browsers'] =  $this->GetPreference('autoprefixer_browsers', '');
+
 
 
 // CMSMS 1.11 compatibility

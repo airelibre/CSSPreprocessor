@@ -9,7 +9,7 @@ class Preprocessor_ScssPHP extends Preprocessor {
 	const DESCRIPTION = 'A PHP / SASS pre-processor';
 	const AUTHOR = 'Leaf';
 	const WEBSITE = 'http://leafo.github.io/scssphp/';
-	const NOTE = 'Does not support sourcemaps and autoprefixer. Useful if sass is not installed on your server';
+	const NOTE = 'Does not support sourcemaps. Useful if SASS is not installed on your server';
 	const LOGO = 'logo.png';
 
 
