@@ -1,7 +1,7 @@
 <?php
 
 require_once(cms_join_path(__DIR__, 'scssphp', 'scss.inc.php'));
-use Leafo\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Compiler;
 
 class Preprocessor_ScssPHP extends Preprocessor {
 
@@ -19,8 +19,6 @@ class Preprocessor_ScssPHP extends Preprocessor {
 	public function Load()
 	{
 		parent::Load();
-
-
 		$this->parser = new Compiler();
 
 		// Options

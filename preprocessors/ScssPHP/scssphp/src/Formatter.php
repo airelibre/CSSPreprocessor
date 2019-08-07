@@ -2,16 +2,17 @@
 /**
  * SCSSPHP
  *
- * @copyright 2012-2015 Leaf Corcoran
+ * @copyright 2012-2019 Leaf Corcoran
  *
  * @license http://opensource.org/licenses/MIT MIT
  *
- * @link http://leafo.github.io/scssphp
+ * @link http://scssphp.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp;
+namespace ScssPhp\ScssPhp;
 
-use Leafo\ScssPhp\Formatter\OutputBlock;
+use ScssPhp\ScssPhp\Formatter\OutputBlock;
+use ScssPhp\ScssPhp\SourceMap\SourceMapGenerator;
 
 /**
  * Base formatter
@@ -56,9 +57,29 @@ abstract class Formatter
     public $assignSeparator;
 
     /**
-     * @var boolea
+     * @var boolean
      */
     public $keepSemicolons;
+
+    /**
+     * @var \ScssPhp\ScssPhp\Formatter\OutputBlock
+     */
+    protected $currentBlock;
+
+    /**
+     * @var integer
+     */
+    protected $currentLine;
+
+    /**
+     * @var integer
+     */
+    protected $currentColumn;
+
+    /**
+     * @var \ScssPhp\ScssPhp\SourceMap\SourceMapGenerator
+     */
+    protected $sourceMapGenerator;
 
     /**
      * Initialize formatter
@@ -105,9 +126,7 @@ abstract class Formatter
             return;
         }
 
-        if (($count = count($lines))
-            && substr($lines[$count - 1], -1) === ';'
-        ) {
+        if (($count = count($lines)) && substr($lines[$count - 1], -1) === ';') {
             $lines[$count - 1] = substr($lines[$count - 1], 0, -1);
         }
     }
@@ -115,7 +134,7 @@ abstract class Formatter
     /**
      * Output lines inside a block
      *
-     * @param \Leafo\ScssPhp\Formatter\OutputBlock $block
+     * @param \ScssPhp\ScssPhp\Formatter\OutputBlock $block
      */
     protected function blockLines(OutputBlock $block)
     {
@@ -123,31 +142,31 @@ abstract class Formatter
 
         $glue = $this->break . $inner;
 
-        echo $inner . implode($glue, $block->lines);
+        $this->write($inner . implode($glue, $block->lines));
 
         if (! empty($block->children)) {
-            echo $this->break;
+            $this->write($this->break);
         }
     }
 
     /**
      * Output block selectors
      *
-     * @param \Leafo\ScssPhp\Formatter\OutputBlock $block
+     * @param \ScssPhp\ScssPhp\Formatter\OutputBlock $block
      */
     protected function blockSelectors(OutputBlock $block)
     {
         $inner = $this->indentStr();
 
-        echo $inner
+        $this->write($inner
             . implode($this->tagSeparator, $block->selectors)
-            . $this->open . $this->break;
+            . $this->open . $this->break);
     }
 
     /**
      * Output block children
      *
-     * @param \Leafo\ScssPhp\Formatter\OutputBlock $block
+     * @param \ScssPhp\ScssPhp\Formatter\OutputBlock $block
      */
     protected function blockChildren(OutputBlock $block)
     {
@@ -159,13 +178,15 @@ abstract class Formatter
     /**
      * Output non-empty block
      *
-     * @param \Leafo\ScssPhp\Formatter\OutputBlock $block
+     * @param \ScssPhp\ScssPhp\Formatter\OutputBlock $block
      */
     protected function block(OutputBlock $block)
     {
         if (empty($block->lines) && empty($block->children)) {
             return;
         }
+
+        $this->currentBlock = $block;
 
         $pre = $this->indentStr();
 
@@ -187,11 +208,35 @@ abstract class Formatter
             $this->indentLevel--;
 
             if (empty($block->children)) {
-                echo $this->break;
+                $this->write($this->break);
             }
 
-            echo $pre . $this->close . $this->break;
+            $this->write($pre . $this->close . $this->break);
         }
+    }
+
+    /**
+     * Test and clean safely empty children
+     * @param \ScssPhp\ScssPhp\Formatter\OutputBlock $block
+     * @return bool
+     */
+    protected function testEmptyChildren($block)
+    {
+        $isEmpty = empty($block->lines);
+
+        if ($block->children) {
+            foreach ($block->children as $k => &$child) {
+                if (! $this->testEmptyChildren($child)) {
+                    $isEmpty = false;
+                } else {
+                    if ($child->type === Type::T_MEDIA || $child->type === Type::T_DIRECTIVE) {
+                        $child->children = [];
+                        $child->selectors = null;
+                    }
+                }
+            }
+        }
+        return $isEmpty;
     }
 
     /**
@@ -199,12 +244,23 @@ abstract class Formatter
      *
      * @api
      *
-     * @param \Leafo\ScssPhp\Formatter\OutputBlock $block An abstract syntax tree
+     * @param \ScssPhp\ScssPhp\Formatter\OutputBlock             $block              An abstract syntax tree
+     * @param \ScssPhp\ScssPhp\SourceMap\SourceMapGenerator|null $sourceMapGenerator Optional source map generator
      *
      * @return string
      */
-    public function format(OutputBlock $block)
+    public function format(OutputBlock $block, SourceMapGenerator $sourceMapGenerator = null)
     {
+        $this->sourceMapGenerator = null;
+
+        if ($sourceMapGenerator) {
+            $this->currentLine = 1;
+            $this->currentColumn = 0;
+            $this->sourceMapGenerator = $sourceMapGenerator;
+        }
+
+        $this->testEmptyChildren($block);
+
         ob_start();
 
         $this->block($block);
@@ -212,5 +268,32 @@ abstract class Formatter
         $out = ob_get_clean();
 
         return $out;
+    }
+
+    /**
+     * @param string $str
+     */
+    protected function write($str)
+    {
+        if ($this->sourceMapGenerator) {
+            $this->sourceMapGenerator->addMapping(
+                $this->currentLine,
+                $this->currentColumn,
+                $this->currentBlock->sourceLine,
+                //columns from parser are off by one
+                $this->currentBlock->sourceColumn > 0 ? $this->currentBlock->sourceColumn - 1 : 0,
+                $this->currentBlock->sourceName
+            );
+
+            $lines = explode("\n", $str);
+            $lineCount = count($lines);
+            $this->currentLine += $lineCount-1;
+
+            $lastLine = array_pop($lines);
+
+            $this->currentColumn = ($lineCount === 1 ? $this->currentColumn : 0) + strlen($lastLine);
+        }
+
+        echo $str;
     }
 }

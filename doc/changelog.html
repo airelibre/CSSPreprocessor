@@ -1,46 +1,60 @@
 <ul>
-  <li>
-    <strong>3.0-beta1</strong> - 2017-06-19
-    <ul>
-      <li>Now works in CMSMS 2.2+ and uses the hooks system to process the entire SCSS/LESS code from various stylesheets directly in {cms_stylesheet}</li>
-      <li>With the new CMSMS stylesheets hook you can now use many Sass/Less source CSS files in the Design manager (not limited to 1 anymore)</li>
-      <li>Now using Autoprefixer with Postcss directly from CLI - you must install it on your server (see the CLI tool from https://github.com/postcss/autoprefixer) - Browsers list parameter removed</li>
-      <li>The @@CSSPreprocessor@@ tag is no more needed: the entire concatenated stylesheet is now processed - if you don't need the CSSPreprocessor module, simply remove it or disable it.</li>
-      <li>Removed the installer / uninstaller (nothing more to install and uninstall as there is no more event handler thanks to the hooks mechanism)</li>
-      <li>Now clears the CMSMS cache when the module preferences are changed</li>
-      <li>Bug fix wrt sourcemap files in Sass</li>
-      <li>Small admin look change</li>
-    </ul>
-  </li>
-  <li>
-    <strong>2.1</strong> - 2016-05-09 : bug fixes wrt admin panel look
-  </li>
-  <li>
-    <strong>2.0</strong> - 2016-01-25: say hello to SASS through command line and scssphp!
-    <ul>
-      <li>Added Sass from command line + ScssPHP</li>
-      <li>Bug fixes</li>
-      <li>Documentation update for CMSMS2 - Note: only one stylsheet is allowed in order to work in CMSMS 2</li> 
-    </ul>
-  </li>
-  <li>
-    <strong>1.4.1</strong> - 2016-01-18: bug fix related to smarty delimiters ("[[" and "]]")
-  </li>
-  <li>
-    <strong>1.4</strong> - 2016-01-08:
-   <ul>
-      <li>Minimal CMS version = 2.1.1</li>
-      <li>Now uses the StylesheetPreCompile event instead of the SmartyPreCompile</li>
-      <li>Some bug fixe (default PreProcessor become Oyejorges one)</li>
-      <li>Updated to Oyejorge's Less.php v. 1.7.0.10 - please test!</li>
-      <li>Removed the -x (compress) option from Less command line compiler Preprocessor as it's now deprecated - you can use the embeded minifier</li>
-    </ul>
-  </li>
-	<li><strong>1.3</strong> - 2015-01-20: add support for Autoprefix for the Lessc command line - see https://github.com/postcss/autoprefixer - check out new options on the admin panel - please test with your version of Lessc</li>
-	<li><strong>1.2</strong> - 2014-09-25: update to the paths / Now the include dir is relative to the root path (not the uploads anymore) - Please update your configuration to add <strong>uploads/</strong> if needed!<br>
-		This is useful if you place your less files in another dir that the uploads/ one
-	</li>
-	<li><strong>1.1</strong> - 2014-09-03: Add Smarty support - Note that the module now plugs on the SmartyPreCompile event (before it was SmartyPostCompile) - This needs tests</li>
-	<li><strong>1.0.1</strong> - 2014-09-03: Bug fixes</li>
-	<li><strong>1.0</strong> - 2014-09-02: Initial 1.0 release - Please test and give me feedback</li>
+    <li>
+        <strong>3.0-beta2</strong> - 2019-08-07
+        <ul>
+            <li>
+                Upgraded libs: ScssPHP v.1.0.2
+            </li>
+            <li>
+                CMSMS 2.3 compatibility
+            </li>
+            <li>
+                Code cleanup
+            </li>
+        </ul>
+    </li>
+    <li>
+        <strong>3.0-beta1</strong> - 2017-06-19
+        <ul>
+            <li>Now works in CMSMS 2.2+ and uses the hooks system to process the entire SCSS/LESS code from various stylesheets directly in {cms_stylesheet}</li>
+            <li>With the new CMSMS stylesheets hook you can now use many Sass/Less source CSS files in the Design manager (not limited to 1 anymore)</li>
+            <li>Now using Autoprefixer with Postcss directly from CLI - you must install it on your server (see the CLI tool from https://github.com/postcss/autoprefixer) - Browsers list parameter removed</li>
+            <li>The @@CSSPreprocessor@@ tag is no more needed: the entire concatenated stylesheet is now processed - if you don't need the CSSPreprocessor module, simply remove it or disable it.</li>
+            <li>Removed the installer / uninstaller (nothing more to install and uninstall as there is no more event handler thanks to the hooks mechanism)</li>
+            <li>Now clears the CMSMS cache when the module preferences are changed</li>
+            <li>Bug fix wrt sourcemap files in Sass</li>
+            <li>Small admin look change</li>
+        </ul>
+    </li>
+    <li>
+        <strong>2.1</strong> - 2016-05-09 : bug fixes wrt admin panel look
+    </li>
+    <li>
+        <strong>2.0</strong> - 2016-01-25: say hello to SASS through command line and scssphp!
+        <ul>
+            <li>Added Sass from command line + ScssPHP</li>
+            <li>Bug fixes</li>
+            <li>Documentation update for CMSMS2 - Note: only one stylsheet is allowed in order to work in CMSMS 2</li>
+        </ul>
+    </li>
+    <li>
+        <strong>1.4.1</strong> - 2016-01-18: bug fix related to smarty delimiters ("[[" and "]]")
+    </li>
+    <li>
+        <strong>1.4</strong> - 2016-01-08:
+        <ul>
+            <li>Minimal CMS version = 2.1.1</li>
+            <li>Now uses the StylesheetPreCompile event instead of the SmartyPreCompile</li>
+            <li>Some bug fixe (default PreProcessor become Oyejorges one)</li>
+            <li>Updated to Oyejorge's Less.php v. 1.7.0.10 - please test!</li>
+            <li>Removed the -x (compress) option from Less command line compiler Preprocessor as it's now deprecated - you can use the embeded minifier</li>
+        </ul>
+    </li>
+    <li><strong>1.3</strong> - 2015-01-20: add support for Autoprefix for the Lessc command line - see https://github.com/postcss/autoprefixer - check out new options on the admin panel - please test with your version of Lessc</li>
+    <li><strong>1.2</strong> - 2014-09-25: update to the paths / Now the include dir is relative to the root path (not the uploads anymore) - Please update your configuration to add <strong>uploads/</strong> if needed!<br>
+        This is useful if you place your less files in another dir that the uploads/ one
+    </li>
+    <li><strong>1.1</strong> - 2014-09-03: Add Smarty support - Note that the module now plugs on the SmartyPreCompile event (before it was SmartyPostCompile) - This needs tests</li>
+    <li><strong>1.0.1</strong> - 2014-09-03: Bug fixes</li>
+    <li><strong>1.0</strong> - 2014-09-02: Initial 1.0 release - Please test and give me feedback</li>
 </ul>

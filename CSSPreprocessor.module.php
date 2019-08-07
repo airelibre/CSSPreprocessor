@@ -28,52 +28,55 @@ if( !isset($gCms) ) exit;
 class CSSPreprocessor extends CMSModule
 {
 
-	function __construct(){
+	function __construct()
+    {
 		parent::__construct();
-
-  	\CMSMS\HookManager::add_hook('Core::StylesheetPostRender', [$this, 'RunPreprocessor'] );
+        \CMSMS\HookManager::add_hook('Core::StylesheetPostRender', [$this, 'RunPreprocessor'] );
+        \CMSMS\HookManager::add_hook('Core::PostProcessCSS', [$this, 'RunPreprocessor'] );
 	}
 
-	function GetVersion() {return '3.0-beta1';}
-	function MinimumCMSVersion() {return '2.2';}
-	function GetFriendlyName() {return $this->Lang('friendlyname');}
-	function GetHelp(){return $this->Lang('help');}
-
+	function GetVersion() { return '3.0-beta2'; }
+	function MinimumCMSVersion() { return '2.2.9'; }
+	function GetFriendlyName() { return $this->Lang('friendlyname');}
+	function GetHelp(){ return $this->Lang('help');}
 	function GetAuthor() { return 'Aire libre - Mathieu Muths'; }
-  function GetAuthorEmail() { return 'contact@airelibre.fr'; }
+    function GetAuthorEmail() { return 'contact@airelibre.fr'; }
 
-  function GetChangeLog() {
+    function GetChangeLog() {
 		return file_get_contents(dirname(__FILE__).'/doc/changelog.html');
 	}
 
 	public function LazyLoadFrontend() { return false; }
-  public function LazyLoadAdmin() { return false; }
+    public function LazyLoadAdmin() { return false; }
 
 
-  // Admin params
-  function HasAdmin() { return true; }
-  function IsAdminOnly() { return false; }
+      // Admin params
+      function HasAdmin() { return true; }
+      function IsAdminOnly() { return false; }
 
-  function GetAdminSection() { return 'layout'; }
-  function VisibleToAdminUser() {
+    function GetAdminSection() { return 'layout'; }
+    function VisibleToAdminUser() 
+    {
 		return $this->CheckPermission('Manage Stylesheets');
-  }
+    }
 
 
-  function GetHeaderHTML() {
-		$header = '<link rel="stylesheet" href="../modules/CSSPreprocessor/admin_css/csspreprocessor.css">';
-
+    function GetHeaderHTML() 
+    {
+        $cssFile = cms_join_path($this->getModulePath(), 'admin_css', 'csspreprocessor.css');
+        $cssUrl = str_replace(CMS_ROOT_PATH, CMS_ROOT_URL, $cssFile);
+        $header = '<link rel="stylesheet" href="' . $cssUrl . '">';
 		return $header;
-  }
+    }
 
 
 
-  // **********************************************************
-  // NON-API CUSTOM FUNCTIONS
-  // **********************************************************
+    // **********************************************************
+    // NON-API CUSTOM FUNCTIONS
+    // **********************************************************
 
-  public function GetPreprocessor()
-  {
+    public function GetPreprocessor()
+    {
 		$preprocessor_name = $this->GetPreference('preprocessor', 'LessPHPOyejorge');
 
 		require_once(cms_join_path(__DIR__, 'preprocessors', $preprocessor_name, 'class.Preprocessor_' . $preprocessor_name . '.php'));
@@ -84,45 +87,46 @@ class CSSPreprocessor extends CMSModule
 		$obj->Load();
 
 		return $obj;
-  }
+    }
 
 
 
 
-  // Run the preprocessor
-  public function RunPreprocessor($params){
-
-		// CSSPreprocessor load and run
+    // Run the preprocessor
+    public function RunPreprocessor($params)
+    {
+		// Preprocessor load and run
 		if ($preprocessor = $this->GetPreprocessor())
 		{
-
-			$preprocessor->CompileCSS($params['content']);
-
+            if (is_array($params)) {
+                $cssContent = &$params['content'];
+            } else {
+                $cssContent = &$params;
+            }
+            $preprocessor->CompileCSS($cssContent);
 
 			if ( $this->GetPreference('use_autoprefixer', 0) )
 			{
 				// Store to a file to give it to the command line
 				$tmp_file = cms_join_path(TMP_CACHE_LOCATION, 'postcss_tmp.css');
-				file_put_contents($tmp_file, $params['content']);
+				file_put_contents($tmp_file, $cssContent);
 				exec('postcss ' . $tmp_file . ' --use autoprefixer --no-map -o ' . $tmp_file);
 
 				$res = file_get_contents($tmp_file);
 				if ( $res != '')
 				{
-					$params['content'] = $res;
+					$cssContent = $res;
 				}
 
 				@unlink($tmp_file);
 			}
 
-
 			// Minify
-			if ($preprocessor->minify)
-				$preprocessor->MinifyCSS($params['content']);
-		}
-  }
+			if ($preprocessor->minify) {
+				$preprocessor->MinifyCSS($cssContent);
+            }
 
-
+            return $cssContent;
+        }
+    }
 }
-
-?>
