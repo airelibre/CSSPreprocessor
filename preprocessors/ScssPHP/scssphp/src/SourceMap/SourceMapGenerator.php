@@ -321,7 +321,7 @@ class SourceMapGenerator
         if (strpos($filename, '\\') === 0 || strpos($filename, '/') === 0) {
             $filename = substr($filename, 1);
         }
-
+        
         return $rootpath . $filename;
     }
 

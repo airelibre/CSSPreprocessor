@@ -1,5 +1,5 @@
 
-<h1>{$mod->Lang('preferences')}</h1>
+{* <h1>{$mod->Lang('preferences')}</h1> *}
 
 {$form_start}
 
@@ -40,7 +40,7 @@
 						<div class="description grid_{if isset($preprocessor->logo) and !empty($preprocessor->logo)}8{else}10{/if}">
 							<h2>{$preprocessor->friendly_name}</h2>
 							<p>
-								{$preprocessor->description} - By <a href="{$preprocessor->website}"><em>{$preprocessor->author}</em></a>
+								{$preprocessor->description} - By <a href="{$preprocessor->website}" target="_blank"><em>{$preprocessor->author}</em></a>
 
 								{if !empty($preprocessor->note)}
 									<br><strong>{$mod->Lang('note')}</strong> {$preprocessor->note}
@@ -70,7 +70,7 @@
 				<label for='import_dirs'>{$mod->Lang('import_dirs')}</label>
 			</p>
 			<p class="pageinput">
-				<input type="text" name='{$actionid}import_dirs' id='import_dirs' value='{$import_dirs}'>
+				<input type="text" name='{$actionid}import_dirs' id='import_dirs' value='{$import_dirs}' style="width: 90%">
 			</p>
 		</div>
 

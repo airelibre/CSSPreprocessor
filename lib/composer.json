@@ -1,0 +1,5 @@
+{
+    "require": {
+        "padaliyajay/php-autoprefixer": "^1.2"
+    }
+}

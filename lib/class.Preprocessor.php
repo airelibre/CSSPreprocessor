@@ -15,7 +15,7 @@ class Preprocessor {
 
 
 	// Load import dirs
-	public function Load()
+	public function load()
 	{
 		$mod = cms_utils::get_module('CSSPreprocessor');
 		$config = cmsms()->GetConfig();
@@ -71,7 +71,7 @@ class Preprocessor {
 
 
 	// Needs to be overridden by the subclasses
-	public function CompileCSS(&$css='')
+	public function compileCSS(&$css='')
 	{
 		return true;
 	}
@@ -82,10 +82,9 @@ class Preprocessor {
 
 	// From : http://code.seebz.net/p/minify-css/
 	// Thanks
-	public function MinifyCSS(&$css='')
+	public function minifyCSS(&$css='')
 	{
 		$css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
-
 		$css = str_replace(array("\r","\n"), '', $css);
 		$css = preg_replace('`([^*/])\/\*([^*]|[*](?!/)){5,}\*\/([^*/])`Us', '$1$3', $css);
 		$css = preg_replace('`\s*({|}|,|:|;)\s*`', '$1', $css);
@@ -104,9 +103,3 @@ class Preprocessor {
 	}
 
 }
-
-
-
-
-
-?>

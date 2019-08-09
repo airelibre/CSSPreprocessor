@@ -25,6 +25,8 @@
 #-------------------------------------------------------------------------
 if( !isset($gCms) ) exit;
 
+use Padaliyajay\PHPAutoprefixer\Autoprefixer;
+
 class CSSPreprocessor extends CMSModule
 {
 
@@ -107,23 +109,14 @@ class CSSPreprocessor extends CMSModule
 
 			if ( $this->GetPreference('use_autoprefixer', 0) )
 			{
-				// Store to a file to give it to the command line
-				$tmp_file = cms_join_path(TMP_CACHE_LOCATION, 'postcss_tmp.css');
-				file_put_contents($tmp_file, $cssContent);
-				exec('postcss ' . $tmp_file . ' --use autoprefixer --no-map -o ' . $tmp_file);
-
-				$res = file_get_contents($tmp_file);
-				if ( $res != '')
-				{
-					$cssContent = $res;
-				}
-
-				@unlink($tmp_file);
+                require_once(cms_join_path(__DIR__,'lib','vendor', 'autoload.php'));
+                $autoPrefixer = new Autoprefixer($cssContent);
+                $cssContent = $autoPrefixer->compile();
 			}
 
 			// Minify
 			if ($preprocessor->minify) {
-				$preprocessor->MinifyCSS($cssContent);
+				$preprocessor->minifyCSS($cssContent);
             }
 
             return $cssContent;
