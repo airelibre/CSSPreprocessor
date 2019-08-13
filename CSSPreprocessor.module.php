@@ -1,7 +1,7 @@
 <?php
 #-------------------------------------------------------------------------
 # Module: CSSPreprocessor
-# Author: Airelibre / Mathieu Muths - www.airelibre.fr
+# Author: Airelibre / Mathieu Muths - www.airelibre.net
 # A module to help designers to use CSS Preprocessor in order to process
 # LESS or SASS (later) code.
 #-------------------------------------------------------------------------
@@ -29,7 +29,6 @@ use Padaliyajay\PHPAutoprefixer\Autoprefixer;
 
 class CSSPreprocessor extends CMSModule
 {
-
 	function __construct()
     {
 		parent::__construct();
@@ -37,7 +36,7 @@ class CSSPreprocessor extends CMSModule
         \CMSMS\HookManager::add_hook('Core::PostProcessCSS', [$this, 'RunPreprocessor'] );
 	}
 
-	function GetVersion() { return '3.0-beta2'; }
+	function GetVersion() { return '3.0-beta3'; }
 	function MinimumCMSVersion() { return '2.2.9'; }
 	function GetFriendlyName() { return $this->Lang('friendlyname');}
 	function GetHelp(){ return $this->Lang('help');}
@@ -61,7 +60,6 @@ class CSSPreprocessor extends CMSModule
     {
 		return $this->CheckPermission('Manage Stylesheets');
     }
-
 
     function GetHeaderHTML() 
     {
@@ -117,6 +115,13 @@ class CSSPreprocessor extends CMSModule
 			// Minify
 			if ($preprocessor->minify) {
 				$preprocessor->minifyCSS($cssContent);
+            }
+
+            // Sourcemap ?
+            if ($preprocessor->generate_sourcemap && $preprocessor->source_map_url)
+            {
+                // And add sourcemap because minify removes comments
+                $cssContent .= "/*# sourceMappingURL=" . $preprocessor->source_map_url . " */";
             }
 
             return $cssContent;

@@ -24,16 +24,14 @@
 
 				{foreach from=$preprocessors item=preprocessor key=dir}
 
-
 					<label class="preprocessor c_full">
-
 						<div class="input_radio grid_2">
-							<input type="radio" name="{$actionid}preprocessor" value="{$dir}" {if $current_preprocessor eq $dir}checked{/if}>
+							<input type="radio" name="{$actionid}preprocessor" value="{$preprocessor->dir}" {if $current_preprocessor eq $preprocessor->dir}checked{/if}>
 						</div>
 
 						{if isset($preprocessor->logo) and !empty($preprocessor->logo)}
 							<div class="logo grid_2">
-								<img src="{$mod->GetModuleURLPath()}/preprocessors/{$dir}/{$preprocessor->logo}" width="100">
+								<img src="{$mod->GetModuleURLPath()}/preprocessors/{$preprocessor->dir}/{$preprocessor->logo}" width="100">
 							</div>
 						{/if}
 

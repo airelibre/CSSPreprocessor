@@ -2,14 +2,14 @@
 
 class Preprocessor_SassCommand extends Preprocessor {
 
-	const FRIENDLY_NAME = 'Sass compiler from command line';
+	const FRIENDLY_NAME = 'Sass compiler from command line (<em>no longer supported</em>)';
 	const DESCRIPTION = 'The official command line SASS compilator';
 	const AUTHOR = 'Core SASS team';
-	const WEBSITE = 'http://www.sass-lang.com';
-	const NOTE = 'Fast, but you NEED the sass command line tool installed on your server to use it - check the official website for more informations';
+	const WEBSITE = 'https://sass-lang.com/ruby-sass';
+	const NOTE = 'Uses Ruby Sass which is <strong>no longer supported</strong>. Will be removed in a future version. Better use Dart Sass now or ScssPHP - check the official website for more informations';
 	const LOGO = 'logo.png';
-
-	const SOURCEMAPFILE = 'csspreprocessor_out.css.map';
+	//const SOURCEMAPFILE = 'csspreprocessor_out.css.map';
+	const PRIORITY = 15;
 
 
 
@@ -42,9 +42,7 @@ class Preprocessor_SassCommand extends Preprocessor {
 
 		if (!empty($this->import_dirs))
 		{
-			$config = cmsms()->GetConfig();
 			$separator = ',';
-
 			$command .= '--load-path ' . implode($separator, $this->import_dirs);
 		}
 
@@ -65,11 +63,4 @@ class Preprocessor_SassCommand extends Preprocessor {
 
 		return true;
 	}
-
-
 }
-
-
-
-
-?>

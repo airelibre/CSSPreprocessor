@@ -6,8 +6,9 @@ class Preprocessor_LessCommand extends Preprocessor {
 	const DESCRIPTION = 'The official command line LESS compilator';
 	const AUTHOR = 'Core LESS team';
 	const WEBSITE = 'http://lesscss.org';
-	const NOTE = 'Fast, but you NEED the lessc command line tool (v. 1.7 or newer) installed on your server to use it - check the official website for more informations';
+	const NOTE = 'Fast, but you NEED the lessc command line tool (v. 1.7 or newer) installed on your server to use it - check the official website for more informations. Supports sourcemaps';
 	const LOGO = 'logo.png';
+	const PRIORITY = 55;
 
 
 

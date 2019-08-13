@@ -4,7 +4,7 @@
 # C
 $lang['cancel'] = 'Cancel';
 $lang['css_preprocessor'] = 'CSS Preprocessor';
-$lang['choose_preprocessor'] = 'Choose the preprocessor you want to use:';
+$lang['choose_preprocessor'] = 'Choose the preprocessor you want to use';
 
 
 # F
@@ -25,7 +25,7 @@ $lang['import_dirs'] = 'Directories containing LESS/SASS files to include in com
 
 # M
 $lang['minify'] = 'Minify';
-$lang['minify_label'] = 'Minify the CSS - Note: if allowed by the pre-processor ';
+$lang['minify_label'] = 'Minify the CSS';
 
 # N
 $lang['note'] = 'Note:';

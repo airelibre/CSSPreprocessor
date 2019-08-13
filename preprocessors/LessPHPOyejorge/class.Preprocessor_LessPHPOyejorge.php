@@ -6,8 +6,9 @@ class Preprocessor_LessPHPOyejorge extends Preprocessor {
 	const DESCRIPTION = 'A PHP / LESSCSS pre-processor';
 	const AUTHOR = 'oyejorge - Josh Schmidt';
 	const WEBSITE = 'https://github.com/oyejorge/less.php';
-	const NOTE = '';
+	const NOTE = 'Should support sourcemaps';
 	const LOGO = 'logo.png';
+	const PRIORITY = 50;
 	
 	
 	// For LessPHPOyejorge

@@ -6,13 +6,15 @@ class Preprocessor {
 
 	const SOURCEMAPFILE = 'sourcemap.map';
 
+	// Priority in the order of appearance on the admin panel
+	const PRIORITY = 100;
+
 	public $import_dirs;
 	public $minify;
 
 	public $generate_sourcemap;
 	public $source_map_file='';
 	public $source_map_url='';
-
 
 	// Load import dirs
 	public function load()
@@ -91,15 +93,6 @@ class Preprocessor {
 		$css = str_replace(';}', '}', $css);
 		$css = preg_replace('`(?=|})[^{}]+{}`', '', $css);
 		$css = preg_replace('`[\s]+`', ' ', $css);
-
-		// Test
-		//$css = '/*Mini*/'.$css;
-
-		if ($this->generate_sourcemap && $this->source_map_url)
-		{
-			// And add sourcemap because minify removes comments
-			$css = $css . "/*# sourceMappingURL=" . $this->source_map_url . " */";
-		}
 	}
 
 }

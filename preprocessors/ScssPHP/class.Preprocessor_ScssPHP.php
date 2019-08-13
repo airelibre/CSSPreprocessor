@@ -11,6 +11,7 @@ class Preprocessor_ScssPHP extends Preprocessor {
 	const WEBSITE = 'http://leafo.github.io/scssphp/';
 	const NOTE = 'Quite as fast as Sass from command line, supports sourcemaps';
 	const LOGO = 'logo.png';
+	const PRIORITY = 5;
 
 
 	public $parser;
@@ -83,8 +84,3 @@ class Preprocessor_ScssPHP extends Preprocessor {
 	}
 
 }
-
-
-
-
-?>

@@ -67,7 +67,7 @@ $lang['help'] = <<<EOT
 
 <h2>Using Sourcemaps</h2>
 <p>
-	Some preprocessors can create sourcemap files, in order to help you during integration. Don't forget to configure your browser to use that function. Note that only imported files will be mapped in the sourcemaps (this may change in a further version).<br>Don't forget to disable the sourcemaps for production.
+	Some preprocessors can create sourcemap files, in order to help you during integration. Don't forget to configure your browser to use that function. Note that only imported files will be mapped in the sourcemaps (this may change in a further version).<br><strong>Don't forget to disable the sourcemaps for production</strong>.
 </p>
 
 <h2>Deactivate the module</h2>

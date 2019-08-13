@@ -59,8 +59,10 @@ if ($dirs)
 		if (!empty($note))
 			$obj->note = $note;
 		
-		$preprocessors[$preprocessor] = $obj;
+		$preprocessors[$class_name::PRIORITY] = $obj;
 	}
+	// Order by priority
+	ksort($preprocessors);
 	
 	$assign['preprocessors'] = $preprocessors;
 }
