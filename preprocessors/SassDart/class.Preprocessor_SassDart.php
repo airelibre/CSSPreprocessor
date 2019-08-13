@@ -60,7 +60,10 @@ class Preprocessor_SassDart extends Preprocessor {
         }
 
 		// Remove temp files
-		@unlink($file);
+        if (!$this->generate_sourcemap) {
+        // Do not remove the tmp source file for development to allow for the browser inspector to get it
+		  @unlink($file);
+        }
 		@unlink($file_output);
 
 		return true;
